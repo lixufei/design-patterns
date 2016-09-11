@@ -1,16 +1,21 @@
 package net.lixufei.weather;
 
+import java.util.*;
+
 public class CurrentConditionsDisplay implements Observer, DisplayElement {
+    Observable observable;
     float temperature;
     float humidity;
-    Subject subject;
-    public CurrentConditionsDisplay (Subject subject) {
-        this.subject = subject;
-        subject.registerObserver(this);
+
+    public CurrentConditionsDisplay (Observable observable) {
+        this.observable = observable;
+        observable.addObserver(this);
     }
-    public void update(float temperature, float humidity, float pressure) {
-        this.temperature = temperature;
-        this.humidity = humidity;
+    public void update(Observable observable, Object object) {
+        if(observable instanceof WeatherData) {
+            this.temperature = ((WeatherData) observable).getTemperature();
+            this.humidity = ((WeatherData) observable).getHumidity();
+        }
         display();
     }
 

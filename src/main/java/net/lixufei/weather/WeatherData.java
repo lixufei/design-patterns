@@ -2,34 +2,28 @@ package net.lixufei.weather;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
-public class WeatherData implements Subject {
-    public List<Observer> observers;
+public class WeatherData extends Observable {
     public float temperature;
     public float humidity;
     public float pressure;
-    public WeatherData () {
-        this.observers = new ArrayList<Observer>();
-    }
-    public void registerObserver(Observer o) {
-        observers.add(o);
+
+    public float getHumidity() {
+        return humidity;
     }
 
-    public void removeObserver(Observer o) {
-        int observerIndex = observers.indexOf(0);
-        if (observerIndex > 0) {
-            observers.remove(o);
-        }
+    public float getPressure() {
+        return pressure;
     }
 
-    public void notifyObservers() {
-        for(int i = 0; i < observers.size(); i++) {
-            Observer observer = observers.get(i);
-            observer.update(temperature, humidity, pressure);
-        }
+    public float getTemperature() {
+        return temperature;
+
     }
 
     public void measureChanged () {
+        setChanged();
         notifyObservers();
     }
 
