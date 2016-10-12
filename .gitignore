@@ -5,4 +5,5 @@ gradle/
 .idea/
 build/
 .DS_Store
-
+error.log
+log.log
